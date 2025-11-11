@@ -4,7 +4,6 @@
 #include "../fungovani_automatu/backend_automatu.h"
 #include "../fungovani_automatu/animace.h"
 
-<<<<<<<< HEAD:jednotlive_hry/hadej_cislo.cpp
 int konec_hry(){
   int co_chce;
   std::cout << "Hra je u konce, co chceš dělat dál:\n";
@@ -30,8 +29,7 @@ int konec_hry(){
   }
 };
 
-========
->>>>>>>> 9a5bf8e (úklid, složky, README):jednotlive hry/hadej_cislo.cpp
+
 int hadej_cislo(){
     // Hádej číslo
     
