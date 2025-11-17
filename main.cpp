@@ -19,6 +19,6 @@ using namespace std;
 // ────────────────────────────────
 int main() {
     CelaAnimace();
-   // backend_automatu();
+    backend_automatu();
     return 0;
 }
