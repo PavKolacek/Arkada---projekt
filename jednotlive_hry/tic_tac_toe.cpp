@@ -1,11 +1,36 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
 #include "tic_tac_toe.h"
+#include "../fungovani_automatu/backend_automatu.h"
+#include "../fungovani_automatu/animace.h"
+
 using namespace std;
 
+int konec_hry(){
+  int co_chce;
+  std::cout << "Hra je u konce, co chceš dělat dál:\n";
+  std::cout << "1: pro hraní znova \n 2: pro výběr jiné hry \n 3: pro ukončení automatu";
+  std::cin >> co_chce;
+  switch (co_chce)
+  {
+  case 1:
+    tic_tac_toe();
+    break;
+  case 2:
+    vyber_hry1();
+    backend_automatu();
+    break;
 
+  case 3:
+    clearConsole();
+    std::cout << "Vrať se zas!";
+    break;
+
+  default:
+    break;
+  }
+};
 static const int lines[8][3][2] = { //array vyhernich kombinaci, ten se nema implementovat v .h
     {{0,0}, {0,1}, {0,2}},
     {{1,0}, {1,1}, {1,2}},
@@ -149,6 +174,7 @@ int tic_tac_toe() {
         cout << "Hrac " << winner << " je vitez!" << endl;
     else
         cout << "Remiza!" << endl;
-
+    
+        konec_hry();
     return 0;
 }

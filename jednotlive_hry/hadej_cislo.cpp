@@ -1,6 +1,33 @@
 #include <iostream>
 #include <cstdlib>
 #include "hadej_cislo.h"
+#include "../fungovani_automatu/backend_automatu.h"
+#include "../fungovani_automatu/animace.h"
+
+int konec_hry(){
+  int co_chce;
+  std::cout << "Hra je u konce, co chceš dělat dál:\n";
+  std::cout << "1: pro hraní znova \n 2: pro výběr jiné hry \n 3: pro ukončení automatu";
+  std::cin >> co_chce;
+  switch (co_chce)
+  {
+  case 1:
+    hadej_cislo();
+    break;
+  case 2:
+    vyber_hry1();
+    backend_automatu();
+    break;
+
+  case 3:
+    clearConsole();
+    std::cout << "Vrať se zas!";
+    break;
+
+  default:
+    break;
+  }
+};
 
 int hadej_cislo(){
     // Hádej číslo
@@ -70,8 +97,10 @@ int hadej_cislo(){
 
     if(guess == number){
         std::cout << "Gratuluji! Uhodl jsi mé číslo.\n";
+        konec_hry();
     } else {
         std::cout << "Špatně! Moje číslo bylo " << number << ".\n";
+        konec_hry();
     }
 
     return 0;

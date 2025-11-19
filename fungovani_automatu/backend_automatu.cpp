@@ -3,31 +3,37 @@
 #include "../jednotlive_hry/snake.h"
 #include "../jednotlive_hry/sortinghat.h"
 #include "../jednotlive_hry/tic_tac_toe.cpp"
+#include "animace.cpp"
 
-#pragma once
-
-int backend_automatu(){
+int vyber_hry1(){
     int vyberHry;
-    cin >> vyberHry;
+    std::cin >> vyberHry;
 
     switch (vyberHry)
     {
     case 1:
-        return hadej_cislo();
+         hadej_cislo();
         break;
     case 2:
-        return magic8();
+         magic8();
         break;
     case 3:
-        return sorting_hat();
+         sorting_hat();
         break;
     case 4:
         snake();
         break;
     case 5:
-        return tic_tac_toe();
+         tic_tac_toe();
     default:
         break;
     }
-    return 1;
+    return 0;
+};
+
+
+
+int backend_automatu(){
+    vyber_hry1();
+    return 0;
 }

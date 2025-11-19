@@ -180,7 +180,7 @@ void drawAutomat(){
     clearConsole();
 }
 
-void vyber_hry(){
+void vyber_hry_animace(){
     cout << "  -@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+." << endl;
     cout << "  =@                                      @=:" << endl;
     cout << "  -@   1. Hádej číslo                     @-." << endl;
@@ -205,5 +205,5 @@ void CelaAnimace(){
     drawMedium();
     drawBig();
     drawAutomat();
-    vyber_hry();
+    vyber_hry_animace();
 }
