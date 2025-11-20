@@ -2,32 +2,48 @@
 #include "../jednotlive_hry/magic8.h"
 #include "../jednotlive_hry/snake.h"
 #include "../jednotlive_hry/sortinghat.h"
-#include "../jednotlive_hry/tic_tac_toe.cpp"
+#include "../jednotlive_hry/knp.h"
+#include "../jednotlive_hry/tic_tac_toe.h"
+#include "../jednotlive_hry/sibenice.h"
+#include "animace.cpp"
 
-#pragma once
-
-int backend_automatu(){
+int vyber_hry1(){
     int vyberHry;
-    cin >> vyberHry;
+    std::cin >> vyberHry;
+    std::cin >> vyberHry;
 
     switch (vyberHry)
     {
     case 1:
-        return hadej_cislo();
+        hadej_cislo();
         break;
     case 2:
-        return magic8();
+        magic8();
         break;
     case 3:
-        return sorting_hat();
+        sorting_hat();
         break;
     case 4:
         snake();
         break;
     case 5:
-        return tic_tac_toe();
+         tic_tac_toe();
+         break;
+    case 6:
+        knp();
+        break;
+    case 7:
+        sibenice();
+        break;
     default:
         break;
     }
-    return 1;
+    return 0;
+};
+
+
+
+int backend_automatu(){
+    vyber_hry1();
+    return 0;
 }
