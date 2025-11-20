@@ -2,11 +2,11 @@
 #include "../jednotlive_hry/magic8.h"
 #include "../jednotlive_hry/snake.h"
 #include "../jednotlive_hry/sortinghat.h"
-//#include "tic-tac-toe.cpp"
-#include "../jednotlive_hry/tic_tac_toe.cpp"
+#include "../jednotlive_hry/knp.h"
+#include "../jednotlive_hry/tic_tac_toe.h"
+#include "../jednotlive_hry/sibenice.h"
 #include "animace.cpp"
 
-int vyber_hry1(){
 int vyber_hry1(){
     int vyberHry;
     std::cin >> vyberHry;
@@ -16,25 +16,28 @@ int vyber_hry1(){
     {
     case 1:
         hadej_cislo();
-         hadej_cislo();
         break;
     case 2:
         magic8();
-         magic8();
         break;
     case 3:
         sorting_hat();
-         sorting_hat();
         break;
     case 4:
         snake();
         break;
     case 5:
          tic_tac_toe();
+         break;
+    case 6:
+        knp();
+        break;
+    case 7:
+        sibenice();
+        break;
     default:
         break;
     }
-    return 0;
     return 0;
 };
 

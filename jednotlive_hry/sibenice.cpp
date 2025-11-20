@@ -9,6 +9,7 @@
 #include <fstream>
 #include <cctype>
 
+#include "sibenice.h"
 // Upravit seznam slov zde (pro ty, co budou hrát) nebo pridat soubor "words.txt" vedle programu (kazdy radek = jedno slovo)
 static std::vector<std::string> BUILT_IN_WORDS = {
     "jablko", "programovani", "python", "informatika", "skola", "stromecek", "auto", "knihovna"
@@ -80,7 +81,7 @@ void draw_state(const std::string& secret, const std::set<char>& guessed, int wr
     std::cout << "\n\n";
 }
 
-int main() {
+int sibenice() {
     std::mt19937 rng((unsigned)std::chrono::high_resolution_clock::now().time_since_epoch().count());
     std::cout << "=== Šibenice ===\n";
     std::cout << "Pravidla: Maximalne je 5 chyb. Uhadni slovo postupně pismeny nebo celym slovem.\n";

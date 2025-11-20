@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <string>
 
+#include "knp.h"
+
 using namespace std;
 
 
