@@ -7,36 +7,32 @@
 #include <vector>
 #include <map>
 #include <atomic>
+#include <mutex>
+#include <limits>
 
 using namespace std;
 
-
 atomic<bool> timeUp(false);
 int currentDifficulty = 1;
+mutex coutMutex;
 
 void countdown(int seconds) {
     while (seconds > 0 && !timeUp) {
-        
-        cout << "\033[s";
-
-        
-        cout << "\033[1;1H";
-
-        
-        cout << "\033[2K";
-
-        cout << "⏳ Zbývá čas: " << seconds << " s" << flush;
-
-       
-        cout << "\033[u" << flush;
-
+        {
+            lock_guard<mutex> lock(coutMutex);
+            cout << "\033[s";          
+            cout << "\033[1;1H";      
+            cout << "\033[2K";        
+            cout << "⏳ Zbývá čas: " << seconds << " s" << flush;
+            cout << "\033[u" << flush; 
+        }
         this_thread::sleep_for(chrono::seconds(1));
         seconds--;
     }
 
     if (!timeUp) {
         timeUp = true;
-
+        lock_guard<mutex> lock(coutMutex);
         cout << "\033[s";
         cout << "\033[1;1H";
         cout << "\033[2K";
@@ -67,45 +63,45 @@ int showMenu(){
 }
 
 void showRules(){
-clearScreen();
-cout << "===== 📃PRAVIDLA HRY📃 =====\n";
-cout << "- Nejprve musíš vyřešit hádanku.\n";
-cout << "- Pak se dostaneš k bombě.\n";
-cout << "- Musíš podle nápovědy uhodnout správný drát.\n";
-cout << "- Musíš to vše stihnout do uplynutí času.\n";
-cout << "- Když se netrefíš a nebo ti dojde čas, 💥BOOM💥\n\n";
+    clearScreen();
+    cout << "===== 📃PRAVIDLA HRY📃 =====\n";
+    cout << "- Nejprve musíš vyřešit hádanku.\n";
+    cout << "- Pak se dostaneš k bombě.\n";
+    cout << "- Musíš podle nápovědy uhodnout správný drát.\n";
+    cout << "- Musíš to vše stihnout do uplynutí času.\n";
+    cout << "- Když se netrefíš a nebo ti dojde čas, 💥BOOM💥\n\n";
 
-cout << "Zadej cokoliv pro vrácení do menu.\n";
-cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-string back;
-getline(cin, back); 
+    cout << "Zadej cokoliv pro vrácení do menu.\n";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    string back;
+    getline(cin, back); 
 
 }
 
 int chooseDifficulty(){
-clearScreen();
-int difficulty = 1;
-cout << "==== 😱VÝBĚR OBTÍŽNOSTI😱 ====\n";
-cout << "- 1 = Nejlehčí obtížnost😴\n";
-cout << "- 2 = Střední obtížnost🤔\n";
-cout << "- 3 = Nejtežší obtížnost🤯\n";
+    clearScreen();
+    int difficulty = 1;
+    cout << "==== 😱VÝBĚR OBTÍŽNOSTI😱 ====\n";
+    cout << "- 1 = Nejlehčí obtížnost😴\n";
+    cout << "- 2 = Střední obtížnost🤔\n";
+    cout << "- 3 = Nejtežší obtížnost🤯\n";
 
-cin >> difficulty;
-while (difficulty < 1 || difficulty > 3)
-{
-    cout << "Neplatná obtížnost! Zadej číslo 1-3\n";
     cin >> difficulty;
-}
+    while (difficulty < 1 || difficulty > 3)
+    {
+        cout << "Neplatná obtížnost! Zadej číslo 1-3\n";
+        cin >> difficulty;
+    }
 
-currentDifficulty = difficulty;
+    currentDifficulty = difficulty;
 
-cout << "Obtížnost je nastavená na: " << currentDifficulty <<endl;
-cout << "Zadej cokoliv pro vrácení do menu.\n";
-cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-string back;
-getline(cin, back); 
+    cout << "Obtížnost je nastavená na: " << currentDifficulty <<endl;
+    cout << "Zadej cokoliv pro vrácení do menu.\n";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    string back;
+    getline(cin, back); 
 
-return currentDifficulty;
+    return currentDifficulty;
 }
 
 bool generatePuzzle(int difficulty){
@@ -316,7 +312,7 @@ bool defuseBomb(int difficulty){
     if(choice==correctWire) return true;
 
     bool secondChance=false;
-    if(difficulty==3) secondChance=(rand()%100);
+    if(difficulty==3) secondChance=(rand()%100) < 50;
 
     if(!secondChance) return false;
 
@@ -362,6 +358,7 @@ void startGame(int difficulty){
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
         string back;
         getline(cin, back); 
+        return;
     }
 
         clearScreen();
@@ -379,7 +376,7 @@ void startGame(int difficulty){
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
         string back;
         getline(cin, back); 
-
+        return;
     }
         cout << "✅Správně✅\n";
         cout << "Zneškodnil si bombu!( ´･･)ﾉ(._.`)\n\n";
@@ -392,8 +389,6 @@ void startGame(int difficulty){
     getline(cin, back); 
 }
 
-/// @brief 
-/// @return 
 int main(){
     srand(time(0));
      while (true) {
