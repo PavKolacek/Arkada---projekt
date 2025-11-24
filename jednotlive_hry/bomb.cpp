@@ -1,3 +1,5 @@
+#include "bomb.h"
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -6,12 +8,32 @@
 #include <chrono>
 #include <vector>
 #include <map>
-#include <atomic>
-#include <mutex>
 #include <limits>
-
+#include "../fungovani_automatu/animace.h"
+#include "../fungovani_automatu/backend_automatu.h"
 using namespace std;
 
+int konec_hry8(){
+    int rozhodnuti;
+    std::cout << "Hra je u konce" << std::endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
+    std::cin >> rozhodnuti;
+    switch (rozhodnuti)
+    {
+    case 1:
+        bomb();
+        break;
+    case 2:
+        vyber_hry_animace();
+        vyber_hry1();
+        break;
+    case 3:
+        vypnuti();
+    default:
+        break;
+    }
+    return 0;
+}
+// TADY jsou *definice* globálních proměnných
 atomic<bool> timeUp(false);
 int currentDifficulty = 1;
 mutex coutMutex;
@@ -20,11 +42,11 @@ void countdown(int seconds) {
     while (seconds > 0 && !timeUp) {
         {
             lock_guard<mutex> lock(coutMutex);
-            cout << "\033[s";          
-            cout << "\033[1;1H";      
-            cout << "\033[2K";        
+            cout << "\033[s";          // uložit kurzor
+            cout << "\033[1;1H";       // na začátek
+            cout << "\033[2K";         // smazat řádek
             cout << "⏳ Zbývá čas: " << seconds << " s" << flush;
-            cout << "\033[u" << flush; 
+            cout << "\033[u" << flush; // obnovit kurzor
         }
         this_thread::sleep_for(chrono::seconds(1));
         seconds--;
@@ -75,7 +97,6 @@ void showRules(){
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     string back;
     getline(cin, back); 
-
 }
 
 int chooseDifficulty(){
@@ -259,7 +280,7 @@ bool defuseBomb(int difficulty){
         {"fialova", "Barva moci, mystiky a aristokracie"}
     };
 
-     map<string, string> secondHints = {
+    map<string, string> secondHints = {
         {"cervena", "#FF0000 a nebo (255,0,0)"},
         {"modra", "#0000FF a nebo (0,0,255)"},
         {"zelena", "#008000 a nebo (0,128,0)"},
@@ -267,7 +288,7 @@ bool defuseBomb(int difficulty){
         {"cerna", "#000000 a nebo (0,0,0)"},
         {"bila", "#FFFFFF a nebo (255,255,255)"},
         {"fialova", "#800080 a nebo (128,0,128)"}
-     };
+    };
 
     if(difficulty == 1){
         wireCount = 3;
@@ -285,19 +306,24 @@ bool defuseBomb(int difficulty){
     cout << "Zde máš " << wireCount << "drátů v bombě.👀\n";
     cout << "Nápověda ke správnému drátu:\n";
     
-    if(difficulty == 1){cout << easyHints[correctColor] << "\n\n";
-    }else if(difficulty == 2){cout << mediumHints[correctColor] << "\n\n";
-    }else{cout << hardHints[correctColor] << "\n\n";}
+    if(difficulty == 1){
+        cout << easyHints[correctColor] << "\n\n";
+    }else if(difficulty == 2){
+        cout << mediumHints[correctColor] << "\n\n";
+    }else{
+        cout << hardHints[correctColor] << "\n\n";
+    }
     
     vector<string> colorCodes = {
-    "\033[31m", 
-    "\033[34m", 
-    "\033[32m", 
-    "\033[33m", 
-    "\033[30m", 
-    "\033[37m", 
-    "\033[35m"  
+        "\033[31m",
+        "\033[34m",
+        "\033[32m",
+        "\033[33m",
+        "\033[30m",
+        "\033[37m",
+        "\033[35m"
     };
+
     for (int i = 1; i <= wireCount; i++)
     {
          cout << i << ". " << colorCodes[i-1] << wireColors[i-1] << "\033[0m" << endl;
@@ -306,21 +332,20 @@ bool defuseBomb(int difficulty){
     cout << "Jaký chceš přeštípnout?(⊙_⊙;) \n";
     
     int choice;
-    cin>>choice;
+    cin >> choice;
 
+    if(choice == correctWire) return true;
 
-    if(choice==correctWire) return true;
-
-    bool secondChance=false;
-    if(difficulty==3) secondChance=(rand()%100) < 50;
+    bool secondChance = false;
+    if(difficulty == 3) secondChance = (rand() % 100) < 50;
 
     if(!secondChance) return false;
 
-    cout<<"\nŠpatně! Ale máš poslední šanci!\n";
-    cout<<"Dodatečná nápověda: "<<secondHints[correctColor]<<endl<<endl;
+    cout << "\nŠpatně! Ale máš poslední šanci!\n";
+    cout << "Dodatečná nápověda: " << secondHints[correctColor] << endl << endl;
 
-    for(int i=1;i<=wireCount;i++){
-        cout<<i<<". "<<colorCodes[i-1]<<wireColors[i-1]<<"\033[0m"<<endl;
+    for(int i = 1; i <= wireCount; i++){
+        cout << i << ". " << colorCodes[i-1] << wireColors[i-1] << "\033[0m" << endl;
     }
 
     return saveChance(correctWire);
@@ -330,13 +355,11 @@ void startGame(int difficulty){
     clearScreen();
     int timer;
     
-    if (difficulty == 1)
-    {
+    if (difficulty == 1) {
         timer = 30;
-    }else if (difficulty == 2)
-    {
+    } else if (difficulty == 2) {
         timer = 60;
-    }else{
+    } else {
         timer = 90;
     }
 
@@ -361,9 +384,9 @@ void startGame(int difficulty){
         return;
     }
 
-        clearScreen();
-        cout << "✅Správně✅\n";
-        cout << "Dostal jses dál!💦\n\n";
+    clearScreen();
+    cout << "✅Správně✅\n";
+    cout << "Dostal jses dál!💦\n\n";
 
     if(timeUp || !defuseBomb(difficulty)){
         timeUp = true;
@@ -378,10 +401,11 @@ void startGame(int difficulty){
         getline(cin, back); 
         return;
     }
-        cout << "✅Správně✅\n";
-        cout << "Zneškodnil si bombu!( ´･･)ﾉ(._.`)\n\n";
-        timeUp = true;
-        t.join();
+
+    cout << "✅Správně✅\n";
+    cout << "Zneškodnil si bombu!( ´･･)ﾉ(._.`)\n\n";
+    timeUp = true;
+    t.join();
 
     cout << "Zadej cokoliv pro vrácení do menu.\n";
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
@@ -391,7 +415,7 @@ void startGame(int difficulty){
 
 int bomb(){
     srand(time(0));
-     while (true) {
+    while (true) {
         clearScreen();
         int choiceMenu = showMenu();
 
@@ -410,7 +434,7 @@ int bomb(){
                 break;
 
             case 4:
-                cout << "Ukončuji hru. Díky za hraní!\n"; //přidat vracení do automatu
+                cout << "Ukončuji hru. Díky za hraní!\n";
                 return 0; 
 
             default:
@@ -419,4 +443,5 @@ int bomb(){
 
         cout << "\n";
     }
+    konec_hry8();
 }

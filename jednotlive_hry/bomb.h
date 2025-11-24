@@ -1,29 +1,23 @@
 #pragma once
 
 #include <atomic>
-#include <string>
+#include <mutex>
 
-// ====== Globální proměnné ======
 extern std::atomic<bool> timeUp;
 extern int currentDifficulty;
+extern std::mutex coutMutex;
 
-// ====== Funkce ======
-
-// časování a UI
 void countdown(int seconds);
 void clearScreen();
 
-// menu
 int showMenu();
 void showRules();
-int chooseDifficulty();
+int  chooseDifficulty();
 
-// logika hry
 bool generatePuzzle(int difficulty);
 bool saveChance(int correctWire);
 bool defuseBomb(int difficulty);
+
 void startGame(int difficulty);
 
-// hlavní vstup do hry
 int bomb();
-

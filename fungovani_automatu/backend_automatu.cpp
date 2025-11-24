@@ -6,6 +6,7 @@
 #include "../jednotlive_hry/tic_tac_toe.h"
 #include "../jednotlive_hry/sibenice.h"
 #include "../jednotlive_hry/sherlock.h"
+#include "../jednotlive_hry/bomb.h"
 #include "backend_automatu.h"
 #include "animace.h"
 #include <iostream>
@@ -39,9 +40,9 @@ int vyber_hry1(){
     case 8:
         sherlock();
         break;
-    //case 9:
-      //  bomba();
-        //break;
+    case 9:
+        bomb();
+        break;
     default:
         break;
     }
