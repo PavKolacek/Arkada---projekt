@@ -389,7 +389,7 @@ void startGame(int difficulty){
     getline(cin, back); 
 }
 
-int main(){
+int bomb(){
     srand(time(0));
      while (true) {
         clearScreen();
