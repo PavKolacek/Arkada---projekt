@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int konec_hry(){
+int konec_hry7(){
   int co_chce;
   std::cout << "Hra je u konce, co chceš dělat dál:\n";
   std::cout << "1: pro hraní znova \n 2: pro výběr jiné hry \n 3: pro ukončení automatu";
@@ -18,8 +18,8 @@ int konec_hry(){
     tic_tac_toe();
     break;
   case 2:
+    vyber_hry_animace();
     vyber_hry1();
-    backend_automatu();
     break;
 
   case 3:
@@ -30,6 +30,7 @@ int konec_hry(){
   default:
     break;
   }
+  return 0;
 };
 static const int lines[8][3][2] = { //array vyhernich kombinaci, ten se nema implementovat v .h
     {{0,0}, {0,1}, {0,2}},
@@ -175,6 +176,6 @@ int tic_tac_toe() {
     else
         cout << "Remiza!" << endl;
     
-        konec_hry();
+        konec_hry7();
     return 0;
 }

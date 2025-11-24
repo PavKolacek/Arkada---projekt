@@ -1,9 +1,10 @@
 #include <iostream>
 #include "sortinghat.h"
-#include "../fungovani_automatu/backend_automatu.cpp"
-int konec_hry(){
+#include "../fungovani_automatu/backend_automatu.h"
+#include "../fungovani_automatu/animace.h"
+int konec_hry6(){
     int rozhodnuti;
-    std::cout << "Hra je u konce" << endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
+    std::cout << "Hra je u konce" << std::endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
     std::cin >> rozhodnuti;
     switch (rozhodnuti)
     {
@@ -11,6 +12,7 @@ int konec_hry(){
         sorting_hat();
         break;
     case 2:
+        vyber_hry_animace();
         vyber_hry1();
         break;
     case 3:
@@ -18,6 +20,7 @@ int konec_hry(){
     default:
         break;
     }
+    return 0;
 }
 int sorting_hat() {
 
@@ -135,7 +138,7 @@ if (slytherin > max) {
   house = "Zmijozel";
   
 }
-konec_hry();
+konec_hry6();
 std::cout << house << "!\n";
 
 return 0;

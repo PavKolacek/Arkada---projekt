@@ -2,10 +2,11 @@
 #include <vector>
 #include <string>
 #include "sherlock.h"
-#include "../fungovani_automatu/backend_automatu.cpp"
+#include "../fungovani_automatu/backend_automatu.h"
+#include "../fungovani_automatu/animace.h"
 using namespace std;
 
-int konec_hry(){
+int konec_hry3(){
     int rozhodnuti;
     std::cout << "Hra je u konce" << endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
     std::cin >> rozhodnuti;
@@ -15,6 +16,7 @@ int konec_hry(){
         sherlock();
         break;
     case 2:
+        vyber_hry_animace();
         vyber_hry1();
         break;
     case 3:
@@ -22,6 +24,7 @@ int konec_hry(){
     default:
         break;
     }
+    return 0;
 }
 
 Lokace::Lokace(string n, string p, vector<string> s, string d, string osoba, string r)
@@ -420,7 +423,7 @@ A nekdo vi proc.
                 case 4: {
                     hra_bezi = false;
                     cout << "\nHra skoncila. Dekujeme, ze jsi hral(a)!" << endl;
-                    konec_hry();
+                    konec_hry3();
                     return 0;
                 }
             }

@@ -4,9 +4,9 @@
 #include "../fungovani_automatu/backend_automatu.h"
 #include "../fungovani_automatu/animace.h"
 
-int konec_hry(){
+int konec_hry1(){
     int rozhodnuti;
-    std::cout << "Hra je u konce" << endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
+    std::cout << "Hra je u konce" << std::endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
     std::cin >> rozhodnuti;
     switch (rozhodnuti)
     {
@@ -14,6 +14,7 @@ int konec_hry(){
         hadej_cislo();
         break;
     case 2:
+        vyber_hry_animace();
         vyber_hry1();
         break;
     case 3:
@@ -21,6 +22,7 @@ int konec_hry(){
     default:
         break;
     }
+    return 0;
 }
 
 int hadej_cislo(){
@@ -94,6 +96,6 @@ int hadej_cislo(){
     } else {
         std::cout << "Špatně! Moje číslo bylo " << number << ".\n";
     }
-    konec_hry();
+    konec_hry1();
     return 0;
 }

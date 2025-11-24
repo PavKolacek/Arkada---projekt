@@ -13,7 +13,7 @@
 #include "../fungovani_automatu/backend_automatu.h"
 #include "../fungovani_automatu/animace.h"
 // Upravit seznam slov zde (pro ty, co budou hrát) nebo pridat soubor "words.txt" vedle programu (kazdy radek = jedno slovo)
-int konec_hry(){
+int konec_hry4(){
     int rozhodnuti;
     std::cout << "Hra je u konce" << std::endl << "1 -> Hrát znovu\n2-> Chci hrát něco jiného\n 3-> Ukončit a vypnout automat";
     std::cin >> rozhodnuti;
@@ -23,6 +23,7 @@ int konec_hry(){
         /* code */
         break;
     case 2:
+        vyber_hry_animace();
         vyber_hry1();
         break;
     case 3:
@@ -30,6 +31,7 @@ int konec_hry(){
     default:
         break;
     }
+    return 0;
 };
 static std::vector<std::string> BUILT_IN_WORDS = {
     "jablko", "programovani", "python", "informatika", "skola", "stromecek", "auto", "knihovna"
@@ -162,6 +164,7 @@ int sibenice() {
             if (all) { won = true; break; }
 
             if (wrong > max_wrong) break;
+            konec_hry4();
         }
 
         draw_state(secret, guessed, wrong);

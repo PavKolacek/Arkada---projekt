@@ -3,13 +3,10 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++ build active file",
-            "command": "/usr/bin/g++",
+            "command": "bash",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}"
+                    "-c",
+                    "g++ -g main.cpp fungovani_automatu/*.cpp jednotlive_hry/*.cpp -o main"
             ],
             "options": {
                 "cwd": "${fileDirname}"

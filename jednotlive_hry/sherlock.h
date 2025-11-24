@@ -1,11 +1,12 @@
 #pragma once
 
+int konec_hry3();
+
 #include <string>
 #include <vector>
-using namespace std;
 
-int konec_hry();
-
+using std::string;
+using std::vector;
 class Lokace {
 public:
     string nazev;
