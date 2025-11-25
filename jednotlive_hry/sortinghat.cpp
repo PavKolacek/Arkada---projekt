@@ -138,11 +138,8 @@ if (slytherin > max) {
   house = "Zmijozel";
   
 }
-konec_hry6();
 std::cout << house << "!\n";
-
+konec_hry6();
 return 0;
-
-
   
 }

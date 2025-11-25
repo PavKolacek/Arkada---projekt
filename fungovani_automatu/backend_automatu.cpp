@@ -1,5 +1,4 @@
 #include "../jednotlive_hry/hadej_cislo.h"
-#include "../jednotlive_hry/magic8.h"
 #include "../jednotlive_hry/snake.h"
 #include "../jednotlive_hry/sortinghat.h"
 #include "../jednotlive_hry/knp.h"
@@ -20,27 +19,24 @@ int vyber_hry1(){
         hadej_cislo();
         break;
     case 2:
-        //magic8();
-        break;
-    case 3:
         sorting_hat();
         break;
-    case 4:
+    case 3:
         snake();
         break;
-    case 5:
+    case 4:
          tic_tac_toe();
          break;
-    case 6:
+    case 5:
         knp();
         break;
-    case 7:
+    case 6:
         sibenice();
         break;
-    case 8:
+    case 7:
         sherlock();
         break;
-    case 9:
+    case 8:
         bomb();
         break;
     default:
