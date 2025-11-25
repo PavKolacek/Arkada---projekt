@@ -164,7 +164,6 @@ int sibenice() {
             if (all) { won = true; break; }
 
             if (wrong > max_wrong) break;
-            konec_hry4();
         }
 
         draw_state(secret, guessed, wrong);
@@ -180,6 +179,7 @@ int sibenice() {
         ans = to_lower_ascii(trim(ans));
         if (ans.empty() || ans[0] != 'a' && ans[0] != 'y') break;
         std::cout << "\n\n";
+        konec_hry4();
     }
 
     return 0;

@@ -773,7 +773,7 @@ void vyber_hry_animace(){
     cout << "  =@                                      @+:" << endl;
     cout << "  #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@*:" << endl;
     this_thread::sleep_for(chrono::milliseconds(450));
-
+    clearConsole();
     cout << "  -@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+." << endl;
     cout << "  =@                                      @=:" << endl;
     cout << "  -@   1. Hádej číslo                     @-." << endl;
