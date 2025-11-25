@@ -63,7 +63,7 @@ void countdown(int seconds) {
     }
 }
 
-void clearScreen() {
+void clearScreen2() {
     cout << "\033[2J\033[1;1H";
 }
 
@@ -85,7 +85,7 @@ int showMenu(){
 }
 
 void showRules(){
-    clearScreen();
+    clearScreen2();
     cout << "===== 📃PRAVIDLA HRY📃 =====\n";
     cout << "- Nejprve musíš vyřešit hádanku.\n";
     cout << "- Pak se dostaneš k bombě.\n";
@@ -100,7 +100,7 @@ void showRules(){
 }
 
 int chooseDifficulty(){
-    clearScreen();
+    clearScreen2();
     int difficulty = 1;
     cout << "==== 😱VÝBĚR OBTÍŽNOSTI😱 ====\n";
     cout << "- 1 = Nejlehčí obtížnost😴\n";
@@ -352,7 +352,7 @@ bool defuseBomb(int difficulty){
 }
 
 void startGame(int difficulty){
-    clearScreen();
+    clearScreen2();
     int timer;
     
     if (difficulty == 1) {
@@ -384,7 +384,7 @@ void startGame(int difficulty){
         return;
     }
 
-    clearScreen();
+    clearScreen2();
     cout << "✅Správně✅\n";
     cout << "Dostal jses dál!💦\n\n";
 
@@ -416,7 +416,7 @@ void startGame(int difficulty){
 int bomb(){
     srand(time(0));
     while (true) {
-        clearScreen();
+        clearScreen2();
         int choiceMenu = showMenu();
 
         switch (choiceMenu)

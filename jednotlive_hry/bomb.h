@@ -8,7 +8,7 @@ extern int currentDifficulty;
 extern std::mutex coutMutex;
 
 void countdown(int seconds);
-void clearScreen();
+void clearScreen2();
 
 int showMenu();
 void showRules();
